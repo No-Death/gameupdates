@@ -1,0 +1,4 @@
+beautifulsoup4==4.9.0
+pyshorteners==1.0.1
+requests==2.22.0
+tweepy==3.8.0
