@@ -7,7 +7,7 @@ A python script that will crawl games news pages. It will then post it to a twit
 ----
 
 ## Supported Games
--Battlefield V
+- Battlefield V
 
 ----
 
