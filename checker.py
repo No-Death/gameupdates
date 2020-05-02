@@ -4,6 +4,7 @@ import pyshorteners
 import time
 import tweepy
 import datetime
+import os
 
 # Setting Api keys
 
@@ -81,6 +82,7 @@ while True:
         requests.get("http://google.com")
         start()
         time.sleep(60)
+        os.system('cls')
     except requests.exceptions.RequestException:
         print("Connection error, retrying in 5 minutes.")
         time.sleep(300)
