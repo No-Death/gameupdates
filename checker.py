@@ -6,6 +6,25 @@ import tweepy
 import datetime
 import os
 import logging
+from configparser import ConfigParser
+
+config = ConfigParser()
+
+config['API Tokens'] = {
+    'Twitter_Consumer_Key': '',
+    'Twitter_Consumer_Secret': '',
+    'Twitter_Access_Token': '',
+    'Twitter_Access_Token_Secret': '',
+    'Bit.ly_Secret_Token': ''
+}
+
+config.read('config.ini')
+
+c_token = config.get('API Tokens', 'Twitter_Consumer_Key')
+c_secret = config.get('API Tokens', 'Twitter_Consumer_Secret')
+a_token = config.get('API Tokens', 'Twitter_Access_Token')
+a_secret = config.get('API Tokens', 'Twitter_Access_Token_Secret')
+b_secret = config.get('API Tokens', 'Bit.ly_Secret_Token')
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARNING)
@@ -17,13 +36,11 @@ logger.addHandler(file_handler)
 
 # Setting Api keys
 
-auth = tweepy.OAuthHandler("consumer_key",
-                           "consumer_secret")
-auth.set_access_token("Access_token",
-                      "Access_token_secret")
+auth = tweepy.OAuthHandler(c_token, c_secret)
+auth.set_access_token(a_token, a_secret)
 api = tweepy.API(auth)
 
-s = pyshorteners.Shortener(api_key='bit.ly API secret')
+s = pyshorteners.Shortener(api_key=b_secret)
 
 # Check twitter api authentication
 try:
@@ -116,5 +133,5 @@ while True:
         print("Time:", now.strftime("%Y-%m-%d %H:%M:%S"))
     except requests.exceptions.RequestException:
         print("Connection error, retrying in 5 minutes.")
-        logger.exception("Network error")
+        logger.exception("Network Error")
         time.sleep(300)
