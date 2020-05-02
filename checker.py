@@ -5,8 +5,6 @@ import time
 import tweepy
 import datetime
 
-bfv_seen = set()
-ror2_seen = set()
 # Setting Api keys
 
 auth = tweepy.OAuthHandler("consumer_key",
@@ -44,7 +42,6 @@ def start():
         if link.get('href') not in f.read():
             f = open("seen/bfv_seen.txt", "w+")
             f.write(link.get('href'))
-            bfv_seen.add(link.get('href'))
             print("Sending tweet...")
             api.update_status(f"{title} \n #BattlefieldV {url}")
             f.close()
@@ -62,7 +59,6 @@ def start():
         if link.get('href') not in f.read():
             f = open("seen/ror2_seen.txt", "w+")
             f.write(link.get('href'))
-            ror2_seen.add(link.get('href'))
             print("Sending tweet...")
             api.update_status(f"{title} \n #RoR2 {url}")
             f.close()
