@@ -9,6 +9,9 @@ A python script that will crawl games news pages. It will then post it to a twit
 - Battlefield V
 - Risk of Rain 2
 
+## TODO
+- More Games
+
 ## How To Use
 **What you will need:**
 - A twitter dev account and API tokens
