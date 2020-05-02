@@ -39,7 +39,6 @@ file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
 # Setting Api keys
-
 auth = tweepy.OAuthHandler(c_token, c_secret)
 auth.set_access_token(a_token, a_secret)
 api = tweepy.API(auth)
@@ -129,11 +128,11 @@ def start():
 
 while True:
     try:
-        now = datetime.datetime.now()
         requests.get("http://google.com")
         start()
         time.sleep(sd)
         os.system('cls')
+        now = datetime.datetime.now()
         print("Time:", now.strftime("%Y-%m-%d %H:%M:%S"))
     except requests.exceptions.RequestException:
         print("Connection error, retrying in 5 minutes.")
