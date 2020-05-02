@@ -17,6 +17,9 @@ config['API Tokens'] = {
     'Twitter_Access_Token_Secret': '',
     'Bit.ly_Secret_Token': ''
 }
+config['Settings'] = {
+    'Search_Delay': ''
+}
 
 config.read('config.ini')
 
@@ -25,6 +28,7 @@ c_secret = config.get('API Tokens', 'Twitter_Consumer_Secret')
 a_token = config.get('API Tokens', 'Twitter_Access_Token')
 a_secret = config.get('API Tokens', 'Twitter_Access_Token_Secret')
 b_secret = config.get('API Tokens', 'Bit.ly_Secret_Token')
+sd = config.getint('Settings', 'Search_Delay')
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARNING)
@@ -128,7 +132,7 @@ while True:
         now = datetime.datetime.now()
         requests.get("http://google.com")
         start()
-        time.sleep(60)
+        time.sleep(sd)
         os.system('cls')
         print("Time:", now.strftime("%Y-%m-%d %H:%M:%S"))
     except requests.exceptions.RequestException:
