@@ -5,6 +5,15 @@ import time
 import tweepy
 import datetime
 import os
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.WARNING)
+file_handler = logging.FileHandler('logfile.log')
+formatter = logging.Formatter(
+    '%(asctime)s : %(levelname)s : %(message)s')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
 
 # Setting Api keys
 
@@ -38,10 +47,12 @@ def start():
         link = news.find("a")
         url = s.bitly.short("https://www.ea.com" + link.get('href'))
     except AttributeError as e:
-        print("Battlefield check error:", e)
+        print("Battlefield Check Error:", e)
+        logger.exception("Battlefield Check Error")
         pass
     except pyshorteners.exceptions as e:
         print(e)
+        logger.exception("Url Shortener Error")
         pass
     else:
         print("Checking Battlefield updates...")
@@ -56,6 +67,7 @@ def start():
                     pass
                 except tweepy.TweepError as e:
                     print(e)
+                    logger.exception("Twitter API Error")
                     time.sleep(60)
                     pass
 
@@ -69,10 +81,12 @@ def start():
         link = news.find("a")
         url = s.bitly.short(link.get("href"))
     except AttributeError as e:
-        print("Risk of Rain 2 check error:", e)
+        print("Risk of Rain 2 Check Error:", e)
+        logger.exception("Risk of Rain 2 Check Error")
         pass
     except pyshorteners.exceptions as e:
         print(e)
+        logger.exception("Url Shortener Error")
         pass
     else:
         print("Checking Risk of Rain 2 updates...")
@@ -87,10 +101,8 @@ def start():
                     pass
                 except tweepy.TweepError as e:
                     print(e)
+                    logger.exception("Twitter API Error")
                     time.sleep(60)
-                    pass
-                except AttributeError as e:
-                    print(e)
                     pass
 
 
@@ -104,4 +116,5 @@ while True:
         print("Time:", now.strftime("%Y-%m-%d %H:%M:%S"))
     except requests.exceptions.RequestException:
         print("Connection error, retrying in 5 minutes.")
+        logger.exception("Network error")
         time.sleep(300)
