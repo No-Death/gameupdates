@@ -44,7 +44,7 @@ def start():
                 f = open("seen/bfv_seen.txt", "w+")
                 f.write(link.get('href'))
                 print("Sending tweet...")
-                # api.update_status(f"{title} \n #BattlefieldV {url}")
+                api.update_status(f"{title} \n #BattlefieldV {url}")
                 f.close()
                 pass
             except tweepy.TweepError as e:
