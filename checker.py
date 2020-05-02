@@ -3,6 +3,7 @@ import requests
 import pyshorteners
 import time
 import tweepy
+import datetime
 
 # Setting Api keys
 
@@ -34,6 +35,8 @@ def start():
     title = news.find("h3").text
     link = news.find("a")
     url = s.bitly.short("https://www.ea.com" + link.get('href'))
+    now = datetime.datetime.now()
+    print("Last time checked:", now.strftime("%Y-%m-%d %H:%M:%S"))
     print("Checking Battlefield updates...")
     with open('last_seen.txt') as f:
         if link.get('href') not in f.read():
