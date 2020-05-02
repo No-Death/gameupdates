@@ -67,20 +67,20 @@ def start():
         link = news.find("a")
         url = s.bitly.short("https://www.ea.com" + link.get('href'))
     except AttributeError as e:
-        print("Battlefield Check Error:", e)
-        logger.exception("Battlefield Check Error")
+        print("Battlefield V Check Error:", e)
+        logger.exception("Battlefield V Check Error")
         pass
     except pyshorteners.exceptions as e:
         print(e)
         logger.exception("Url Shortener Error")
         pass
     except requests.exceptions.RequestException:
-        print("Connection error, retrying in 5 minutes.")
+        print("Connection Error, Retrying In 5 Minutes.")
         logger.exception("Network Error")
         time.sleep(300)
         pass
     else:
-        print("Checking Battlefield updates...")
+        print("Checking Battlefield V updates...")
         with open('seen/bfv_seen.txt') as f:
             if link.get('href') not in f.read():
                 try:
@@ -96,7 +96,7 @@ def start():
                     time.sleep(60)
                     pass
                 except requests.exceptions.RequestException:
-                    print("Connection error, retrying in 5 minutes.")
+                    print("Connection Error, Retrying In 5 Minutes.")
                     logger.exception("Network Error")
                     time.sleep(300)
                     pass
@@ -119,7 +119,7 @@ def start():
         logger.exception("Url Shortener Error")
         pass
     except requests.exceptions.RequestException:
-        print("Connection error, retrying in 5 minutes.")
+        print("Connection Error, Retrying In 5 Minutes.")
         logger.exception("Network Error")
         time.sleep(300)
         pass
@@ -140,7 +140,7 @@ def start():
                     time.sleep(60)
                     pass
                 except requests.exceptions.RequestException:
-                    print("Connection error, retrying in 5 minutes.")
+                    print("Connection Error, Retrying In 5 Minutes.")
                     logger.exception("Network Error")
                     time.sleep(300)
                     pass
@@ -163,7 +163,7 @@ def start():
         logger.exception("Url Shortener Error")
         pass
     except requests.exceptions.RequestException:
-        print("Connection error, retrying in 5 minutes.")
+        print("Connection Error, Retrying In 5 Minutes.")
         logger.exception("Network Error")
         time.sleep(300)
         pass
@@ -184,7 +184,7 @@ def start():
                     time.sleep(60)
                     pass
                 except requests.exceptions.RequestException:
-                    print("Connection error, retrying in 5 minutes.")
+                    print("Connection Error, Retrying In 5 Minutes.")
                     logger.exception("Network Error")
                     time.sleep(300)
                     pass
@@ -199,6 +199,6 @@ while True:
         now = datetime.datetime.now()
         print("Time:", now.strftime("%Y-%m-%d %H:%M:%S"))
     except requests.exceptions.RequestException:
-        print("Connection error, retrying in 5 minutes.")
+        print("Connection Error, Retrying In 5 Minutes.")
         logger.exception("Network Error")
         time.sleep(300)
