@@ -4,11 +4,9 @@
 # GameUpdates Twitter Bot
 A python script that will crawl games news pages. It will then post it to a twitter bot account.
 
-----
 
 ## Supported Games
 - Battlefield V
 
-----
 
 *NOTE: This is just for fun, I have never done something like this and I'm learning as I'm creating this.*
