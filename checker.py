@@ -57,11 +57,16 @@ def start():
     print("Checking Risk of Rain 2 updates...")
     with open('seen/ror2_seen.txt') as f:
         if link.get('href') not in f.read():
-            f = open("seen/ror2_seen.txt", "w+")
-            f.write(link.get('href'))
-            print("Sending tweet...")
-            api.update_status(f"{title} \n #RoR2 {url}")
-            f.close()
+            try:
+                f = open("seen/ror2_seen.txt", "w+")
+                f.write(link.get('href'))
+                print("Sending tweet...")
+                api.update_status(f"{title} \n #RoR2 {url}")
+                f.close()
+                pass
+            except tweepy.TweepError as e:
+                print(e)
+                raise
 
 
 while True:
