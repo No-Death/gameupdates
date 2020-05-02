@@ -71,3 +71,8 @@ def start():
 while True:
     start()
     time.sleep(60)
+    try:
+        requests.get("http://google.com")
+    except requests.exceptions.RequestException:
+        print("Connection error, retrying in 5 minutes.")
+        time.sleep(300)
