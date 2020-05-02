@@ -19,7 +19,7 @@ A python script that will crawl games news pages. It will then post it to a twit
 
 **Installation:**
 
-Change the token values in the `checker.py` file to your own.
+Change the token values in the `config.ini` file to your own.
 
 Type in the command `pip install -r requirements.txt` in the same location that you put the folder.
 
