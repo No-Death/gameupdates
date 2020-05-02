@@ -74,6 +74,11 @@ def start():
         print(e)
         logger.exception("Url Shortener Error")
         pass
+    except requests.exceptions.RequestException:
+        print("Connection error, retrying in 5 minutes.")
+        logger.exception("Network Error")
+        time.sleep(300)
+        pass
     else:
         print("Checking Battlefield updates...")
         with open('seen/bfv_seen.txt') as f:
@@ -89,6 +94,11 @@ def start():
                     print(e)
                     logger.exception("Twitter API Error")
                     time.sleep(60)
+                    pass
+                except requests.exceptions.RequestException:
+                    print("Connection error, retrying in 5 minutes.")
+                    logger.exception("Network Error")
+                    time.sleep(300)
                     pass
 
     # Risk of Rain 2
@@ -108,6 +118,11 @@ def start():
         print(e)
         logger.exception("Url Shortener Error")
         pass
+    except requests.exceptions.RequestException:
+        print("Connection error, retrying in 5 minutes.")
+        logger.exception("Network Error")
+        time.sleep(300)
+        pass
     else:
         print("Checking Risk of Rain 2 updates...")
         with open('seen/ror2_seen.txt') as f:
@@ -123,6 +138,55 @@ def start():
                     print(e)
                     logger.exception("Twitter API Error")
                     time.sleep(60)
+                    pass
+                except requests.exceptions.RequestException:
+                    print("Connection error, retrying in 5 minutes.")
+                    logger.exception("Network Error")
+                    time.sleep(300)
+                    pass
+
+    # Post Scriptum
+    try:
+        page = requests.get(
+            'https://store.steampowered.com/news/?appids=736220')
+        soup = BeautifulSoup(page.text, 'html.parser')
+        news = soup.find(id="news")
+        title = news.find(class_="posttitle").text
+        link = news.find("a")
+        url = s.bitly.short(link.get("href"))
+    except AttributeError as e:
+        print("Post Scriptum Check Error:", e)
+        logger.exception("Post Scriptum Check Error")
+        pass
+    except pyshorteners.exceptions as e:
+        print(e)
+        logger.exception("Url Shortener Error")
+        pass
+    except requests.exceptions.RequestException:
+        print("Connection error, retrying in 5 minutes.")
+        logger.exception("Network Error")
+        time.sleep(300)
+        pass
+    else:
+        print("Checking Post Scriptum updates...")
+        with open('seen/ps_seen.txt') as f:
+            if link.get('href') not in f.read():
+                try:
+                    f = open("seen/ps_seen.txt", "w+")
+                    f.write(link.get('href'))
+                    print("Sending tweet...")
+                    api.update_status(f"{title} \n #PostScriptum {url}")
+                    f.close()
+                    pass
+                except tweepy.TweepError as e:
+                    print(e)
+                    logger.exception("Twitter API Error")
+                    time.sleep(60)
+                    pass
+                except requests.exceptions.RequestException:
+                    print("Connection error, retrying in 5 minutes.")
+                    logger.exception("Network Error")
+                    time.sleep(300)
                     pass
 
 

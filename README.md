@@ -8,6 +8,7 @@ A python script that will crawl games news pages. It will then post it to a twit
 ## Supported Games
 - Battlefield V
 - Risk of Rain 2
+- Post Scriptum
 
 ## TODO
 - More Games
