@@ -1,4 +1,4 @@
-![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/No-Death/GameUpdates) ![GitHub](https://img.shields.io/github/license/No-Death/Gameupdates) [![Build status](https://ci.appveyor.com/api/projects/status/mi7fc9tvop6ew5ri?svg=true)](https://ci.appveyor.com/project/piitchyy/gameupdates-ix091)
+![GitHub Python Version](https://img.shields.io/badge/Python-v3.7-blue) ![GitHub](https://img.shields.io/github/license/No-Death/Gameupdates) [![Build status](https://ci.appveyor.com/api/projects/status/mi7fc9tvop6ew5ri?svg=true)](https://ci.appveyor.com/project/piitchyy/gameupdates-ix091)
 
 
 # GameUpdates Twitter Bot
