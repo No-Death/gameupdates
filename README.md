@@ -19,7 +19,7 @@ Change the token values in the `checker.py` file to your own.
 
 Type in the command `pip install -r requirements.txt` in the same location that you put the folder.
 
-Run checker.py with the command `python checker.py`
+Run the script with the command `python checker.py`
 
 
 
