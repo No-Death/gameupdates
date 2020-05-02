@@ -40,11 +40,17 @@ def start():
     print("Checking Battlefield updates...")
     with open('seen/bfv_seen.txt') as f:
         if link.get('href') not in f.read():
-            f = open("seen/bfv_seen.txt", "w+")
-            f.write(link.get('href'))
-            print("Sending tweet...")
-            api.update_status(f"{title} \n #BattlefieldV {url}")
-            f.close()
+            try:
+                f = open("seen/bfv_seen.txt", "w+")
+                f.write(link.get('href'))
+                print("Sending tweet...")
+                # api.update_status(f"{title} \n #BattlefieldV {url}")
+                f.close()
+                pass
+            except tweepy.TweepError as e:
+                print(e)
+                time.sleep(60)
+                pass
 
     # Risk of Rain 2
     page = requests.get(
@@ -66,14 +72,15 @@ def start():
                 pass
             except tweepy.TweepError as e:
                 print(e)
-                raise
+                time.sleep(60)
+                pass
 
 
 while True:
-    start()
-    time.sleep(60)
     try:
         requests.get("http://google.com")
+        start()
+        time.sleep(60)
     except requests.exceptions.RequestException:
         print("Connection error, retrying in 5 minutes.")
         time.sleep(300)
