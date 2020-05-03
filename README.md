@@ -1,4 +1,4 @@
-![GitHub Python Version](https://img.shields.io/badge/Python-v3.7-blue) ![GitHub](https://img.shields.io/github/license/No-Death/Gameupdates) [![Build status](https://ci.appveyor.com/api/projects/status/mi7fc9tvop6ew5ri?svg=true)](https://ci.appveyor.com/project/piitchyy/gameupdates-ix091) ![Twitter Follow](https://img.shields.io/twitter/follow/Game_Update_?style=social)
+![GitHub Python Version](https://img.shields.io/badge/Python-v3.7-blue) ![GitHub](https://img.shields.io/github/license/No-Death/Gameupdates) [![Build status](https://ci.appveyor.com/api/projects/status/mi7fc9tvop6ew5ri?svg=true)](https://ci.appveyor.com/project/piitchyy/gameupdates-ix091) [![Twitter Follow](https://img.shields.io/twitter/follow/Game_Update_?style=social)](https://twitter.com/Game_Update_)
 
 
 # GameUpdates Twitter Bot
