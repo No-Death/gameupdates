@@ -11,18 +11,26 @@ from configparser import ConfigParser
 
 config = ConfigParser()
 
-config['API Tokens'] = {
-    'Twitter_Consumer_Key': '',
-    'Twitter_Consumer_Secret': '',
-    'Twitter_Access_Token': '',
-    'Twitter_Access_Token_Secret': '',
-    'Bit.ly_Secret_Token': ''
-}
-config['Settings'] = {
-    'Search_Delay': ''
-}
 
-config.read('config.ini')
+def write_cfg():
+    config.write(open('config.ini', 'w'))
+
+
+if not os.path.exists('config.ini'):
+    config['API Tokens'] = {
+        'Twitter_Consumer_Key': '',
+        'Twitter_Consumer_Secret': '',
+        'Twitter_Access_Token': '',
+        'Twitter_Access_Token_Secret': '',
+        'Bit.ly_Secret_Token': ''
+    }
+    config['Settings'] = {
+        'Search_Delay': '60'
+    }
+    write_cfg()
+else:
+    config.read('config.ini')
+
 
 c_token = config.get('API Tokens', 'Twitter_Consumer_Key')
 c_secret = config.get('API Tokens', 'Twitter_Consumer_Secret')
@@ -31,6 +39,7 @@ a_secret = config.get('API Tokens', 'Twitter_Access_Token_Secret')
 b_secret = config.get('API Tokens', 'Bit.ly_Secret_Token')
 sd = config.getint('Settings', 'Search_Delay')
 
+# Setting Up Logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARNING)
 file_handler = logging.FileHandler('logfile.log')
@@ -39,19 +48,19 @@ formatter = logging.Formatter(
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
-# Setting Api keys
+# Setting API Keys
 auth = tweepy.OAuthHandler(c_token, c_secret)
 auth.set_access_token(a_token, a_secret)
 api = tweepy.API(auth)
-
 s = pyshorteners.Shortener(api_key=b_secret)
 
-# Check twitter api authentication
+# Check Twitter API Authentication
 try:
     api.verify_credentials()
     print("Twitter Authentication OK")
 except:
-    print("Error during authentication")
+    print("Error During Authentication")
+    logger.exception("Error During Authentication")
 
 
 def sleep():
@@ -79,8 +88,8 @@ def start():
         print("Battlefield V Check Error:", e)
         logger.exception("Battlefield V Check Error")
         pass
-    except pyshorteners.exceptions as e:
-        print(e)
+    except (pyshorteners.exceptions.BadAPIResponseException, pyshorteners.exceptions.ShorteningErrorException, pyshorteners.exceptions.BadURLException, pyshorteners.exceptions.ExpandingErrorException) as e:
+        print("Url Shortener Error")
         logger.exception("Url Shortener Error")
         pass
     except requests.exceptions.RequestException:
@@ -123,8 +132,8 @@ def start():
         print("Risk of Rain 2 Check Error:", e)
         logger.exception("Risk of Rain 2 Check Error")
         pass
-    except pyshorteners.exceptions as e:
-        print(e)
+    except (pyshorteners.exceptions.BadAPIResponseException, pyshorteners.exceptions.ShorteningErrorException, pyshorteners.exceptions.BadURLException, pyshorteners.exceptions.ExpandingErrorException) as e:
+        print("Url Shortener Error")
         logger.exception("Url Shortener Error")
         pass
     except requests.exceptions.RequestException:
@@ -167,8 +176,8 @@ def start():
         print("Post Scriptum Check Error:", e)
         logger.exception("Post Scriptum Check Error")
         pass
-    except pyshorteners.exceptions as e:
-        print(e)
+    except (pyshorteners.exceptions.BadAPIResponseException, pyshorteners.exceptions.ShorteningErrorException, pyshorteners.exceptions.BadURLException, pyshorteners.exceptions.ExpandingErrorException) as e:
+        print("Url Shortener Error")
         logger.exception("Url Shortener Error")
         pass
     except requests.exceptions.RequestException:
@@ -211,8 +220,8 @@ def start():
         print("Factorio Check Error:", e)
         logger.exception("Factorio Check Error")
         pass
-    except pyshorteners.exceptions as e:
-        print(e)
+    except (pyshorteners.exceptions.BadAPIResponseException, pyshorteners.exceptions.ShorteningErrorException, pyshorteners.exceptions.BadURLException, pyshorteners.exceptions.ExpandingErrorException) as e:
+        print("Url Shortener Error")
         logger.exception("Url Shortener Error")
         pass
     except requests.exceptions.RequestException:
