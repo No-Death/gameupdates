@@ -53,6 +53,14 @@ except:
     print("Error during authentication")
 
 
+def sleep():
+    for remaining in range(sd, 0, -1):
+        sys.stdout.write("\r")
+        sys.stdout.write("Sleeping for {:2d} seconds.".format(remaining))
+        sys.stdout.flush()
+        time.sleep(1)
+
+
 def start():
 
     # Battlefield V
@@ -238,8 +246,7 @@ while True:
     try:
         requests.get("http://google.com")
         start()
-        print("Sleeping for", sd, "seconds.")
-        time.sleep(sd)
+        sleep()
         os.system('cls')
         now = datetime.datetime.now()
         print("Time:", now.strftime("%Y-%m-%d %H:%M:%S"))
