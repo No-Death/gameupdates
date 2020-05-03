@@ -189,11 +189,56 @@ def start():
                     time.sleep(300)
                     pass
 
+    # Factorio
+    try:
+        page = requests.get(
+            'https://store.steampowered.com/news/?appids=427520')
+        soup = BeautifulSoup(page.text, 'html.parser')
+        news = soup.find(id="news")
+        title = news.find(class_="posttitle").text
+        link = news.find("a")
+        url = s.bitly.short(link.get("href"))
+    except AttributeError as e:
+        print("Factorio Check Error:", e)
+        logger.exception("Factorio Check Error")
+        pass
+    except pyshorteners.exceptions as e:
+        print(e)
+        logger.exception("Url Shortener Error")
+        pass
+    except requests.exceptions.RequestException:
+        print("Connection Error, Retrying In 5 Minutes.")
+        logger.exception("Network Error")
+        time.sleep(300)
+        pass
+    else:
+        print("Checking Factorio updates...")
+        with open('seen/Factorio_seen.txt') as f:
+            if link.get('href') not in f.read():
+                try:
+                    f = open("seen/factorio_seen.txt", "w+")
+                    f.write(link.get('href'))
+                    print("Sending tweet...")
+                    api.update_status(f"{title} \n #Factorio {url}")
+                    f.close()
+                    pass
+                except tweepy.TweepError as e:
+                    print(e)
+                    logger.exception("Twitter API Error")
+                    time.sleep(60)
+                    pass
+                except requests.exceptions.RequestException:
+                    print("Connection Error, Retrying In 5 Minutes.")
+                    logger.exception("Network Error")
+                    time.sleep(300)
+                    pass
+
 
 while True:
     try:
         requests.get("http://google.com")
         start()
+        print("Sleeping for", sd, "seconds.")
         time.sleep(sd)
         os.system('cls')
         now = datetime.datetime.now()
