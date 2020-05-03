@@ -74,7 +74,7 @@ def start():
         print(e)
         logger.exception("Url Shortener Error")
         pass
-    except requests.exceptions.RequestException:
+    except requests.exceptions:
         print("Connection Error, Retrying In 5 Minutes.")
         logger.exception("Network Error")
         time.sleep(300)
@@ -95,7 +95,7 @@ def start():
                     logger.exception("Twitter API Error")
                     time.sleep(60)
                     pass
-                except requests.exceptions.RequestException:
+                except requests.exceptions:
                     print("Connection Error, Retrying In 5 Minutes.")
                     logger.exception("Network Error")
                     time.sleep(300)
@@ -118,7 +118,7 @@ def start():
         print(e)
         logger.exception("Url Shortener Error")
         pass
-    except requests.exceptions.RequestException:
+    except requests.exceptions:
         print("Connection Error, Retrying In 5 Minutes.")
         logger.exception("Network Error")
         time.sleep(300)
@@ -139,7 +139,7 @@ def start():
                     logger.exception("Twitter API Error")
                     time.sleep(60)
                     pass
-                except requests.exceptions.RequestException:
+                except requests.exceptions:
                     print("Connection Error, Retrying In 5 Minutes.")
                     logger.exception("Network Error")
                     time.sleep(300)
@@ -162,7 +162,7 @@ def start():
         print(e)
         logger.exception("Url Shortener Error")
         pass
-    except requests.exceptions.RequestException:
+    except requests.exceptions:
         print("Connection Error, Retrying In 5 Minutes.")
         logger.exception("Network Error")
         time.sleep(300)
@@ -183,7 +183,7 @@ def start():
                     logger.exception("Twitter API Error")
                     time.sleep(60)
                     pass
-                except requests.exceptions.RequestException:
+                except requests.exceptions:
                     print("Connection Error, Retrying In 5 Minutes.")
                     logger.exception("Network Error")
                     time.sleep(300)
@@ -198,7 +198,7 @@ while True:
         os.system('cls')
         now = datetime.datetime.now()
         print("Time:", now.strftime("%Y-%m-%d %H:%M:%S"))
-    except requests.exceptions.RequestException:
+    except requests.exceptions:
         print("Connection Error, Retrying In 5 Minutes.")
         logger.exception("Network Error")
         time.sleep(300)
