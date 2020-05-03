@@ -5,6 +5,7 @@ import time
 import tweepy
 import datetime
 import os
+import sys
 import logging
 from configparser import ConfigParser
 
