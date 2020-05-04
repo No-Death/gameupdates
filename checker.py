@@ -41,7 +41,7 @@ sd = config.getint('Settings', 'Search_Delay')
 
 # Setting Up Logging
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.WARNING)
+logger.setLevel(logging.INFO)
 file_handler = logging.FileHandler('logfile.log')
 formatter = logging.Formatter(
     '%(asctime)s : %(levelname)s : %(message)s')
@@ -104,9 +104,11 @@ def start():
                 try:
                     f = open("seen/bfv_seen.txt", "w+")
                     f.write(link.get('href'))
+                    print(title, url)
                     print("Sending tweet...")
                     api.update_status(f"{title} \n #BattlefieldV {url}")
                     f.close()
+                    logger.info(f'Sent a Battlefield V Tweet\n{title} {url}')
                     pass
                 except tweepy.TweepError as e:
                     print(e)
@@ -148,9 +150,11 @@ def start():
                 try:
                     f = open("seen/ror2_seen.txt", "w+")
                     f.write(link.get('href'))
+                    print(title, url)
                     print("Sending tweet...")
                     api.update_status(f"{title} \n #RoR2 {url}")
                     f.close()
+                    logger.info(f'Sent a Risk of Rain 2 Tweet\n{title} {url}')
                     pass
                 except tweepy.TweepError as e:
                     print(e)
@@ -192,9 +196,11 @@ def start():
                 try:
                     f = open("seen/ps_seen.txt", "w+")
                     f.write(link.get('href'))
+                    print(title, url)
                     print("Sending tweet...")
                     api.update_status(f"{title} \n #PostScriptum {url}")
                     f.close()
+                    logger.info(f'Sent a Post Scriptum Tweet\n{title} {url}')
                     pass
                 except tweepy.TweepError as e:
                     print(e)
@@ -236,9 +242,11 @@ def start():
                 try:
                     f = open("seen/factorio_seen.txt", "w+")
                     f.write(link.get('href'))
+                    print(title, url)
                     print("Sending tweet...")
                     api.update_status(f"{title} \n #Factorio {url}")
                     f.close()
+                    logger.info(f'Sent a Factorio Tweet\n{title} {url}')
                     pass
                 except tweepy.TweepError as e:
                     print(e)
