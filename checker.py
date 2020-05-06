@@ -71,12 +71,16 @@ def sleep():
         time.sleep(1)
 
 
+user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
+headers = {'User-Agent': user_agent}
+
+
 def start():
 
     # Battlefield V
     try:
         page = requests.get(
-            'https://www.ea.com/games/battlefield/battlefield-5/news')
+            'https://www.ea.com/games/battlefield/battlefield-5/news', headers=headers)
         soup = BeautifulSoup(page.text, 'html.parser')
         grid = soup.find("ea-grid")
         news = grid.find(slot="container")
@@ -125,7 +129,8 @@ def start():
 
     # Escape From Tarkov
     try:
-        page = requests.get("https://www.escapefromtarkov.com/")
+        page = requests.get(
+            'https://www.escapefromtarkov.com/', headers=headers)
         soup = BeautifulSoup(page.text, 'html.parser')
         news = soup.find(class_="news_list")
         info = news.find(class_="info")
@@ -157,8 +162,7 @@ def start():
                     f.write(link.get('href'))
                     print(title, desc, url)
                     print("Sending tweet...")
-                    api.update_status(
-                        f"{title}\n{desc}\n\n#EFT {url}")
+                    api.update_status(f"{title}\n{desc}\n\n#EFT {url}")
                     f.close()
                     logger.info(
                         f'Sent a Escape From Tarkov Tweet\n{title}\n{desc} {url}')
@@ -177,7 +181,7 @@ def start():
     # Risk of Rain 2
     try:
         page = requests.get(
-            'https://store.steampowered.com/news/?appids=632360')
+            'https://store.steampowered.com/news/?appids=632360', headers=headers)
         soup = BeautifulSoup(page.text, 'html.parser')
         news = soup.find(id="news")
         title = news.find(class_="posttitle").text
@@ -223,7 +227,7 @@ def start():
     # Post Scriptum
     try:
         page = requests.get(
-            'https://store.steampowered.com/news/?appids=736220')
+            'https://store.steampowered.com/news/?appids=736220', headers=headers)
         soup = BeautifulSoup(page.text, 'html.parser')
         news = soup.find(id="news")
         title = news.find(class_="posttitle").text
@@ -269,7 +273,7 @@ def start():
     # Factorio
     try:
         page = requests.get(
-            'https://store.steampowered.com/news/?appids=427520')
+            'https://store.steampowered.com/news/?appids=427520', headers=headers)
         soup = BeautifulSoup(page.text, 'html.parser')
         news = soup.find(id="news")
         title = news.find(class_="posttitle").text
@@ -315,7 +319,7 @@ def start():
     # My Summer Car
     try:
         page = requests.get(
-            'https://store.steampowered.com/news/?appids=516750')
+            'https://store.steampowered.com/news/?appids=516750', headers=headers)
         soup = BeautifulSoup(page.text, 'html.parser')
         news = soup.find(id="news")
         title = news.find(class_="posttitle").text
