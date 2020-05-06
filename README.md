@@ -10,6 +10,8 @@ A python script that will crawl games news pages. It will then post it to a twit
 - Risk of Rain 2
 - Post Scriptum
 - Factorio
+- Escape From Tarkov
+- My Summer Car
 
 ## TODO
 - More Games

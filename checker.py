@@ -80,7 +80,7 @@ def start():
         soup = BeautifulSoup(page.text, 'html.parser')
         grid = soup.find("ea-grid")
         news = grid.find(slot="container")
-        copy = news.find(slot="copy").text
+        copy = news.find(slot="copy").text.strip()
         title = news.find("h3").text
         link = news.find("a")
         url = s.bitly.short("https://www.ea.com" + link.get('href'))
@@ -106,9 +106,62 @@ def start():
                     f.write(link.get('href'))
                     print(title, url)
                     print("Sending tweet...")
-                    api.update_status(f"{title} \n #BattlefieldV {url}")
+                    api.update_status(
+                        f"{title}\n{copy}\n\n#BattlefieldV #BfV {url}")
                     f.close()
-                    logger.info(f'Sent a Battlefield V Tweet\n{title} {url}')
+                    logger.info(
+                        f'Sent a Battlefield V Tweet\n{title}\n{copy} {url}')
+                    pass
+                except tweepy.TweepError as e:
+                    print(e)
+                    logger.exception("Twitter API Error")
+                    time.sleep(60)
+                    pass
+                except requests.exceptions.RequestException:
+                    print("Connection Error, Retrying In 5 Minutes.")
+                    logger.exception("Network Error")
+                    time.sleep(300)
+                    pass
+
+    # Escape From Tarkov
+    try:
+        page = requests.get("https://www.escapefromtarkov.com/")
+        soup = BeautifulSoup(page.text, 'html.parser')
+        news = soup.find(class_="news_list")
+        info = news.find(class_="info")
+        title = info.find("a").text
+        link = info.find("a")
+        desc = info.find(class_="description").text
+        url = s.bitly.short(
+            "https://www.escapefromtarkov.com" + link.get('href'))
+        pass
+    except AttributeError as e:
+        print("Escape From Tarkov Check Error:", e)
+        logger.exception("Escape From Tarkov Check Error")
+        pass
+    except (pyshorteners.exceptions.BadAPIResponseException, pyshorteners.exceptions.ShorteningErrorException, pyshorteners.exceptions.BadURLException, pyshorteners.exceptions.ExpandingErrorException) as e:
+        print("Url Shortener Error")
+        logger.exception("Url Shortener Error")
+        pass
+    except requests.exceptions.RequestException:
+        print("Connection Error, Retrying In 5 Minutes.")
+        logger.exception("Network Error")
+        time.sleep(300)
+        pass
+    else:
+        print("Checking Escape From Tarkov updates...")
+        with open('seen/eft_seen.txt') as f:
+            if link.get('href') not in f.read():
+                try:
+                    f = open("seen/eft_seen.txt", "w+")
+                    f.write(link.get('href'))
+                    print(title, desc, url)
+                    print("Sending tweet...")
+                    api.update_status(
+                        f"{title}\n{desc}\n\n#EFT {url}")
+                    f.close()
+                    logger.info(
+                        f'Sent a Escape From Tarkov Tweet\n{title}\n{desc} {url}')
                     pass
                 except tweepy.TweepError as e:
                     print(e)
@@ -247,6 +300,52 @@ def start():
                     api.update_status(f"{title} \n #Factorio {url}")
                     f.close()
                     logger.info(f'Sent a Factorio Tweet\n{title} {url}')
+                    pass
+                except tweepy.TweepError as e:
+                    print(e)
+                    logger.exception("Twitter API Error")
+                    time.sleep(60)
+                    pass
+                except requests.exceptions.RequestException:
+                    print("Connection Error, Retrying In 5 Minutes.")
+                    logger.exception("Network Error")
+                    time.sleep(300)
+                    pass
+
+    # My Summer Car
+    try:
+        page = requests.get(
+            'https://store.steampowered.com/news/?appids=516750')
+        soup = BeautifulSoup(page.text, 'html.parser')
+        news = soup.find(id="news")
+        title = news.find(class_="posttitle").text
+        link = news.find("a")
+        url = s.bitly.short(link.get("href"))
+    except AttributeError as e:
+        print("My Summer Car Check Error:", e)
+        logger.exception("My Summer Car Check Error")
+        pass
+    except (pyshorteners.exceptions.BadAPIResponseException, pyshorteners.exceptions.ShorteningErrorException, pyshorteners.exceptions.BadURLException, pyshorteners.exceptions.ExpandingErrorException) as e:
+        print("Url Shortener Error")
+        logger.exception("Url Shortener Error")
+        pass
+    except requests.exceptions.RequestException:
+        print("Connection Error, Retrying In 5 Minutes.")
+        logger.exception("Network Error")
+        time.sleep(300)
+        pass
+    else:
+        print("Checking My Summer Car updates...")
+        with open('seen/msc_seen.txt') as f:
+            if link.get('href') not in f.read():
+                try:
+                    f = open("seen/msc_seen.txt", "w+")
+                    f.write(link.get('href'))
+                    print(title, url)
+                    print("Sending tweet...")
+                    api.update_status(f"{title} \n #MySummerCar #msc {url}")
+                    f.close()
+                    logger.info(f'Sent a My Summer Car Tweet\n{title} {url}')
                     pass
                 except tweepy.TweepError as e:
                     print(e)
