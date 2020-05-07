@@ -127,57 +127,6 @@ def start():
                     time.sleep(300)
                     pass
 
-    # Escape From Tarkov
-    try:
-        page = requests.get(
-            'https://www.escapefromtarkov.com/', headers=headers)
-        soup = BeautifulSoup(page.text, 'html.parser')
-        news = soup.find(class_="news_list")
-        info = news.find(class_="info")
-        title = info.find("a").text
-        link = info.find("a")
-        desc = info.find(class_="description").text
-        url = s.bitly.short(
-            "https://www.escapefromtarkov.com" + link.get('href'))
-        pass
-    except AttributeError as e:
-        print("Escape From Tarkov Check Error:", e)
-        logger.exception("Escape From Tarkov Check Error")
-        pass
-    except (pyshorteners.exceptions.BadAPIResponseException, pyshorteners.exceptions.ShorteningErrorException, pyshorteners.exceptions.BadURLException, pyshorteners.exceptions.ExpandingErrorException) as e:
-        print("Url Shortener Error")
-        logger.exception("Url Shortener Error")
-        pass
-    except requests.exceptions.RequestException:
-        print("Connection Error, Retrying In 5 Minutes.")
-        logger.exception("Network Error")
-        time.sleep(300)
-        pass
-    else:
-        print("Checking Escape From Tarkov updates...")
-        with open('seen/eft_seen.txt') as f:
-            if link.get('href') not in f.read():
-                try:
-                    f = open("seen/eft_seen.txt", "w+")
-                    f.write(link.get('href'))
-                    print(title, desc, url)
-                    print("Sending tweet...")
-                    api.update_status(f"{title}\n{desc}\n\n#EFT {url}")
-                    f.close()
-                    logger.info(
-                        f'Sent a Escape From Tarkov Tweet\n{title}\n{desc} {url}')
-                    pass
-                except tweepy.TweepError as e:
-                    print(e)
-                    logger.exception("Twitter API Error")
-                    time.sleep(60)
-                    pass
-                except requests.exceptions.RequestException:
-                    print("Connection Error, Retrying In 5 Minutes.")
-                    logger.exception("Network Error")
-                    time.sleep(300)
-                    pass
-
     # Risk of Rain 2
     try:
         page = requests.get(
